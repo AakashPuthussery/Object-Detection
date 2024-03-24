@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YOLO Object Detection</title>
+    <style>
+        /* Updated styles for heading */
+        h2 {
+            color: #333; /* Change font color */
+            font-family: Arial, sans-serif; /* Change font style */
+            font-size: 24px; /* Change font size */
+            text-align: center; /* Center align */
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+        }
+
+        /* Apply gradient background color */
+        body {
+            background: linear-gradient(to bottom, #ff7e5f, #feb47b); /* Gradient from red to orange */
+        }
+
+        /* Style for the predict button */
+        button[type="submit"] {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px; /* Rounded corners */
+            width: 100%; /* Full width */
+        }
+
+        /* Style for file upload control */
+        input[type="file"] {
+            background-color: #f44336; /* Red */
+            color: white;
+            padding: 10px; /* Add padding */
+            border: none;
+            border-radius: 5px; /* Rounded corners */
+            width: 100%; /* Full width */
+            box-sizing: border-box; /* Include padding and border in element's total width and height */
+            margin-bottom: 10px; /* Add margin bottom */
+        }
+
+        /* Style for the preview button */
+        .preview-button {
+            background-color: #008CBA; /* Blue */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px; /* Rounded corners */
+            width: 100%; /* Full width */
+        }
+
+        .preview-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+        }
+
+        .preview-popup img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 80%;
+            max-height: 80%;
+        }
+
+        .close-preview {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 20px;
+            z-index: 10000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="font-family: 'Arial', sans-serif; color: #333;">Upload Image for Object Detection</h2>
+        <form action="/predict" method="post" enctype="multipart/form-data">
+            <input type="file" name="image" accept="image/*" required>
+            <button type="submit">Predict</button>
+        </form>
+        {% if predicted_image_url %}
+        <h2>Predicted Image</h2>
+        <img id="predicted-image" src="{{ predicted_image_url }}" alt="Predicted Image">
+        <button class="preview-button" style="display: block;">Preview</button>
+        {% endif %}
+    </div>
+
+    <div class="preview-popup" id="preview-popup">
+        <span class="close-preview" id="close-preview">&times;</span>
+        <img src="{{ predicted_image_url }}" id="predicted-image" alt="Predicted Image">
+    </div>
+
+    <script>
+        // Add event listener for the preview button
+        document.querySelector('.preview-button').addEventListener('click', function() {
+            var previewPopup = document.getElementById('preview-popup');
+            var previewedImage = document.getElementById('previewed-image');
+            var predictedImage = document.getElementById('predicted-image').src;
+
+            previewedImage.src = predictedImage; // Set the previewed image source
+            previewPopup.style.display = 'block'; // Display the preview popup
+        });
+
+        // Add event listener for the close button
+        document.getElementById('close-preview').addEventListener('click', function() {
+            var previewPopup = document.getElementById('preview-popup');
+            previewPopup.style.display = 'none'; // Hide the preview popup
+        });
+    </script>
+</body>
+</html>
