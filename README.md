@@ -33,3 +33,4 @@ Ability to preview the predicted image before and after detection.
 <li> Autonomous Vehicles: Identifying pedestrians, other vehicles, and traffic signs to assist autonomous vehicles in navigation.</li>
 <li>Retail Analytics: Counting and tracking customer movements, monitoring product inventory, and analyzing customer behavior in retail environments.</li>
 <li>Environmental Monitoring: Detecting wildlife, vegetation, and other objects of interest in environmental monitoring applications.</li>
+<h3> Refer this video: https://drive.google.com/file/d/170XNcVL6J-H7n7eMWiu7YplKKY83NbDf/view?usp=drivesdk</h3>
